@@ -27,7 +27,9 @@ function useServerState() {
       const response = await fetch(`/api/search?${queryString}`)
       const data = await response.json()
 
-      serverState.items = serverState.items.concat(data.items)
+      serverState.items = start
+        ? serverState.items.concat(data.items)
+        : data.items || []
       serverState.queries = data.queries
 
       status.value = Status.Succeeded

@@ -1,8 +1,12 @@
 <template>
   <div class="max-w-sm p-4 m-auto">
     <SearchForm />
-    <SearchList :items="serverState.items" class="mt-4" />
-    <button v-if="serverState.queries?.nextPage" @click="getNext">more</button>
+    <SearchList
+      :items="serverState.items"
+      :isSucceded="status === Status.Succeeded"
+      class="mt-4"
+    />
+    <SearchMore v-if="serverState.queries?.nextPage" @click="getNext" />
   </div>
 </template>
 
@@ -10,19 +14,24 @@
 import { defineComponent } from 'vue'
 import SearchForm from './components/SearchForm.vue'
 import SearchList from './components/SearchList.vue'
+import SearchMore from './components/SearchMore.vue'
 import useServerState from './composition/useServerState'
+import { Status } from './types'
 
 export default defineComponent({
   name: 'App',
   components: {
     SearchForm,
     SearchList,
+    SearchMore,
   },
   setup() {
-    const { serverState, getNext } = useServerState()
+    const { serverState, status, getNext } = useServerState()
 
     return {
       serverState,
+      status,
+      Status,
       getNext,
     }
   },

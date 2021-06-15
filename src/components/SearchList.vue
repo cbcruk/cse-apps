@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap gap-4">
+  <div v-if="hasSearchResult" class="flex flex-wrap gap-4">
     <div
       v-for="item in items"
       :key="item.cacheId"
@@ -15,6 +15,9 @@
       </div>
     </div>
   </div>
+  <div v-else-if="isSucceded && !hasSearchResult" class="text-lg italic">
+    검색 결과가 없습니다.
+  </div>
 </template>
 
 <script lang="ts">
@@ -28,7 +31,16 @@ interface Props {
 export default defineComponent({
   name: 'SearchList',
   props: {
-    items: Array as PropType<Props['items']>,
+    items: {
+      type: Array as PropType<Props['items']>,
+      required: true,
+    },
+    isSucceded: Boolean,
+  },
+  computed: {
+    hasSearchResult(): boolean {
+      return this.items.length > 0 && this.$route.query.q !== ''
+    },
   },
 })
 </script>
