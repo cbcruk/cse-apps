@@ -7,8 +7,9 @@ async function search(query: AxiosRequestConfig['params']) {
       params: {
         key: import.meta.env.VITE_CSE_KEY,
         cx: import.meta.env.VITE_CSE_CX,
-        ...query,
-      },
+        sort: 'date',
+        ...query
+      }
     }
   )
 
