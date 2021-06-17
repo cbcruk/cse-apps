@@ -4,5 +4,6 @@ dist
 dist-ssr
 *.local
 
-.vercel
+.vercel*
 .env
+build
