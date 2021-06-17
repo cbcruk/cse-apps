@@ -7,7 +7,10 @@
     >
       <img :src="item.pagemap.cse_image[0].src" alt="" class="w-full" />
       <div class="p-4">
-        <div
+        <a
+          :href="item.link"
+          target="_blank"
+          rel="noreferrer"
           v-html="item.htmlTitle"
           class="title text-md text-gray-900 font-semibold"
         />
