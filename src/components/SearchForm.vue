@@ -19,33 +19,23 @@
   </form>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'SearchForm',
-  setup() {
-    const q = ref<string>('')
-    const router = useRouter()
-    const handleSubmit = () => {
-      if (!q.value) {
-        return
-      }
+const q = ref<string>('')
+const router = useRouter()
+const handleSubmit = () => {
+  if (!q.value) {
+    return
+  }
 
-      router.push({
-        query: {
-          q: q.value,
-        },
-      })
-
-      q.value = ''
+  router.push({
+    query: {
+      q: q.value
     }
+  })
 
-    return {
-      q,
-      handleSubmit,
-    }
-  },
-})
+  q.value = ''
+}
 </script>

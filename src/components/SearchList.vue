@@ -20,28 +20,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { ServerState } from '../types'
+<script setup lang="ts">
+import { defineProps, ref, watchEffect } from 'vue'
+import { useRoute } from 'vue-router'
+import type { ServerState } from '../types'
 
-interface Props {
+const props = defineProps<{
   items: ServerState['items']
-}
+  isSucceded: boolean
+}>()
 
-export default defineComponent({
-  name: 'SearchList',
-  props: {
-    items: {
-      type: Array as PropType<Props['items']>,
-      required: true,
-    },
-    isSucceded: Boolean,
-  },
-  computed: {
-    hasSearchResult(): boolean {
-      return this.items.length > 0 && this.$route.query.q !== ''
-    },
-  },
+const route = useRoute()
+const hasSearchResult = ref(false)
+
+watchEffect(() => {
+  hasSearchResult.value = props.items.length > 0 && route.query.q !== ''
 })
 </script>
 

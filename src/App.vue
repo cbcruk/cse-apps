@@ -10,32 +10,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import SearchForm from './components/SearchForm.vue'
-import SearchList from './components/SearchList.vue'
-import SearchMore from './components/SearchMore.vue'
+<script setup lang="ts">
 import useServerState from './composition/useServerState'
 import { Status } from './types'
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    SearchForm,
-    SearchList,
-    SearchMore,
-  },
-  setup() {
-    const { serverState, status, getNext } = useServerState()
-
-    return {
-      serverState,
-      status,
-      Status,
-      getNext,
-    }
-  },
-})
+const { serverState, status, getNext } = useServerState()
 </script>
 
 <style>
